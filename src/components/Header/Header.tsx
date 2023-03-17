@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './HeaderStyles.css';
 
 export const Header = () => (
@@ -9,9 +9,8 @@ export const Header = () => (
         <div className="header_logo" />
         <div className="title">Lovely House</div>
       </div>
-      <a href="/">Home</a>
-      <a href="/about">About</a>
+      <Link to="/">Home</Link>
+      <Link to="/about">About</Link>
     </div>
-
   </header>
 );
