@@ -21,8 +21,7 @@ export const App: React.FC = () => (
     <Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="/about" element={<AboutPage />} />
-      <Route path="/*" element={<Error404 />} />
-      <Route path="/*" element={<Error404 />} />
+      <Route path="*" element={<Error404 />} />
     </Routes>
   </div>
 );
