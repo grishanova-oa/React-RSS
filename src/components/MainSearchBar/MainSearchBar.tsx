@@ -9,7 +9,8 @@ export class MainSearchBar extends Component {
 
   componentWillUnmount() {
     const { search } = this.state;
-    localStorage.setItem('inputValue', search);
+    alert('The component is going to be unounte');
+    localStorage.setItem('inputValue', JSON.stringify(search));
   }
 
   saveValueToLocalStorage = () => {
@@ -22,14 +23,13 @@ export class MainSearchBar extends Component {
   };
 
   render() {
-    const { search } = this.state;
+    // const { search } = this.state;
 
     return (
       <form className="search-bar">
         <label>
           <input
-          // or value
-            ref={search}
+            // ref={search}
             onChange={this.onInputChange}
             className="search"
             type="search"
