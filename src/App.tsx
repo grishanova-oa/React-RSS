@@ -5,7 +5,6 @@ import { Error404 } from './components/Error404';
 import { MainPage } from './components/MainPage';
 
 export const App: React.FC = () => (
-
   <Routes>
     <Route path="/" element={<MainPage />} />
     <Route path="/about" element={<AboutPage />} />
