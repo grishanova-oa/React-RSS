@@ -1,15 +1,18 @@
 import React, { ChangeEvent, Component } from 'react';
 import './MainSearchBarStyles.css';
 
-export class MainSearchBar extends Component {
-  // eslint-disable-next-line react/state-in-constructor
-  state = {
-    search: localStorage.getItem('search') || '',
-  };
+export class MainSearchBar extends Component<{}, { search: string }> {
+  constructor(props: {}) {
+    super(props);
+
+    const initInputValue = localStorage.getItem('inputValue');
+    const search = initInputValue ? JSON.parse(initInputValue) : '';
+    this.state = { search };
+  }
 
   componentWillUnmount() {
     const { search } = this.state;
-    alert('The component is going to be unounte');
+
     localStorage.setItem('inputValue', JSON.stringify(search));
   }
 
@@ -23,13 +26,13 @@ export class MainSearchBar extends Component {
   };
 
   render() {
-    // const { search } = this.state;
+    const { search } = this.state;
 
     return (
       <form className="search-bar">
         <label>
           <input
-            // ref={search}
+            value={search}
             onChange={this.onInputChange}
             className="search"
             type="search"
