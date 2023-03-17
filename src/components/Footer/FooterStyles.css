@@ -1,0 +1,15 @@
+.footer {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    background: rgba(71, 111, 133, 0.6);
+    margin-top: 30px;
+    height: 50px;
+    width: 100%;
+}
+.footer__img {
+    background: url('../../assets/svg/logo_free-file.jpg');
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+}
