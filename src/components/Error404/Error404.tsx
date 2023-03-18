@@ -1,10 +1,8 @@
 import React from 'react';
-import { Footer } from '../Footer';
 import './Error404Styles.css';
 
 export const Error404 = () => (
-  <div>
+  <div className="error__page">
     <p className="error">Error 404</p>
-    <Footer />
   </div>
 );

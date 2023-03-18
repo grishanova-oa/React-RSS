@@ -5,10 +5,16 @@
     flex-direction: column;
     font-size: 18px;
     cursor: pointer;
+    border: 1px double rgb(181, 191, 206);
+    border-radius: 5px;
 }
 .card__img {
-    width: 200px;
+    width: 210px;
     height: 150px;
+    border: 1px double rgb(74 79 86);
+    border-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 .card__title {
     display: flex;
@@ -40,6 +46,11 @@
 .description {
     display: flex;
     flex-direction: column;
+    padding: 0 5px;
+    transition: 0.5s;
+}
+.description:hover {
+    background-color: rgb(97, 185, 185, 0.2);
 }
 .housing, .added {
     align-self: flex-start;

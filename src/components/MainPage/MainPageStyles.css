@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     font-family: 'Source Sans Pro', sans-serif;
+    flex: 1 1 auto;
 }
 .title {
     font-size: 30px;

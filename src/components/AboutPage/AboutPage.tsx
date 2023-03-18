@@ -1,10 +1,8 @@
 import React from 'react';
-import { Footer } from '../Footer';
 import './AboutPageStyles.css';
 
 export const AboutPage = () => (
-  <div>
+  <div className="about">
     <p>AboutPage</p>
-    <Footer />
   </div>
 );

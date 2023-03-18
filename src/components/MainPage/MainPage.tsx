@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { Cards } from '../Cards';
 import './MainPageStyles.css';
 import { Announcement } from '../../announcement';
-import { Footer } from '../Footer';
 import { MainSearchBar } from '../MainSearchBar';
 
 export class MainPage extends Component {
@@ -19,7 +18,6 @@ export class MainPage extends Component {
             />
           ))}
         </div>
-        <Footer />
       </div>
     );
   }
