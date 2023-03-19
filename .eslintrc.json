@@ -32,7 +32,9 @@
             "required": {
               "some": ["nesting", "id"]
             }
-          }]
+          }],
+          "no-useless-constructor": 0,
+
           
     }
 }

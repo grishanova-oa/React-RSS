@@ -1,6 +1,5 @@
 import React from 'react';
 import { Routes, Route } from 'react-router';
-// import { Link } from 'react-router-dom';
 import { AboutPage } from './components/AboutPage';
 import { Error404 } from './components/Error404';
 import { Footer } from './components/Footer';
