@@ -8,7 +8,7 @@ import { Header } from './components/Header';
 import { MainPage } from './components/MainPage';
 import './styles.css';
 
-export const App: React.FC = () => (
+export const App = () => (
   <div className="wrapper">
     <Header />
     <Routes>
@@ -19,5 +19,3 @@ export const App: React.FC = () => (
     <Footer />
   </div>
 );
-
-export default App;
