@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Cards } from '../Cards';
 import './MainPageStyles.css';
-import { Announcement } from '../../announcement';
+import { announcement } from '../../announcement';
 import { MainSearchBar } from '../MainSearchBar';
 
 export class MainPage extends Component {
@@ -10,7 +10,7 @@ export class MainPage extends Component {
       <div className="main">
         <MainSearchBar />
         <div className="cards">
-          {Announcement.map((item) => (
+          {announcement.map((item) => (
             <Cards
               key={item.id}
               item={item}

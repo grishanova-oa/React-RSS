@@ -13,11 +13,8 @@ interface IAnnouncement {
 interface ICards {
   item: IAnnouncement;
 }
+
 export class Cards extends Component<ICards> {
-  constructor(props: ICards) {
-    super(props);
-  }
-  
   render() {
     const { item } = this.props;
     return (

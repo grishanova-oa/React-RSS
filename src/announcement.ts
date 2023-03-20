@@ -1,4 +1,4 @@
-export const Announcement = [
+export const announcement = [
   {
     id: 1,
     housing: 'House',
