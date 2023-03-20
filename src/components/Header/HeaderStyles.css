@@ -12,6 +12,7 @@
     margin: 0 auto;
 }
 .header_inner {
+    justify-content: space-evenly;
     display: flex;
     align-items: center;
     width: 1200px;

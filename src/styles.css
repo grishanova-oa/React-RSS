@@ -58,3 +58,7 @@ a {
     flex-direction: column;
     height: 100%;
 }
+.active {
+    color: var(--color-active);
+    cursor: default;
+}
