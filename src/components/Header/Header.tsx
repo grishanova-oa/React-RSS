@@ -21,6 +21,9 @@ const getCurrentPage = (pathname: string) => {
     case '/about':
       res = 'About Us';
       break;
+    case '/form':
+      res = 'Form';
+      break;
 
     default:
       res = '404 Page';
@@ -56,6 +59,9 @@ class Header extends Component<HeaderProps, IHeaderState> {
               <h1>{currentPage}</h1>
               <NavLink to="/" onClick={() => this.handleNavClick('Main')}>
                 Main
+              </NavLink>
+              <NavLink to="/form" onClick={() => this.handleNavClick('Form')}>
+                Form
               </NavLink>
               <NavLink to="/about" onClick={() => this.handleNavClick('About')}>
                 About us

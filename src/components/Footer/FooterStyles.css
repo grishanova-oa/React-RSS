@@ -1,7 +1,7 @@
 .footer {
     padding: 10px 20px;
     display: flex;
-    justify-content: center;
+    justify-content:space-around;
     background: rgba(71, 111, 133, 0.6);
     margin-top: 30px;
     height: 50px;

@@ -5,5 +5,6 @@ import './FooterStyles.css';
 export const Footer = () => (
   <div className="footer">
     <Link to="/about" className="footer__img" />
+    <p>2023</p>
   </div>
 );
