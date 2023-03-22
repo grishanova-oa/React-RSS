@@ -21,6 +21,7 @@
         "import/prefer-default-export": "off",
         "react/function-component-definition": "off",
         "linebreak-style": 0,
+        "@typescript-eslint/no-explicit-any": "error",
         "no-param-reassign": 0,
         "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
         "jsx-a11y/label-has-associated-control": ["error", {
