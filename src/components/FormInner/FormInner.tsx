@@ -2,11 +2,8 @@ import React, { Component, RefObject } from 'react';
 import { IFormCard } from '../types';
 import './FormInnerStyles.css';
 
-interface IMistakes {
-  [key: string]: string;
-}
 interface IState {
-  mistakes: IMistakes;
+  [key: string]: string;
 }
 
 let isMistake = false;
@@ -31,23 +28,20 @@ export class FormInner extends Component<IProps, IState> {
     this.inputTitle = React.createRef();
     this.inputCost = React.createRef();
     this.inputDate = React.createRef();
-    this.state = {
-      mistakes: {},
-    };
+    this.state = {};
   }
+
+  addMistake = (key: string, value: string) => {
+    // debugger;
+    isMistake = true;
+    this.setState({ [key]: value });
+  };
 
   checkTitleValue = () => {
     const titleValue = this.inputTitle.current?.value;
-    const { mistakes } = this.state;
 
     if (!titleValue) {
-      isMistake = true;
-      this.setState({
-        mistakes: {
-          ...mistakes,
-          title: 'Не валид Title',
-        },
-      });
+      this.addMistake('title', 'Error title');
 
       return;
     }
@@ -58,30 +52,15 @@ export class FormInner extends Component<IProps, IState> {
     if (isTitleValid) {
       correctValues.title = titleValue;
     } else {
-      isMistake = true;
-      this.setState({
-        mistakes: {
-          ...mistakes,
-          title: 'Не валид Title',
-        },
-      });
+      this.addMistake('title', 'Error title');
     }
   };
 
   checkCostValue = () => {
     const costValue = this.inputCost.current?.value;
-    const { mistakes } = this.state;
-
-    console.log(costValue);
 
     if (!costValue) {
-      isMistake = true;
-      this.setState({
-        mistakes: {
-          ...mistakes,
-          cost: 'Не валид Number',
-        },
-      });
+      this.addMistake('cost', 'Error cost');
 
       return;
     }
@@ -91,47 +70,26 @@ export class FormInner extends Component<IProps, IState> {
     if (isCostValid) {
       correctValues.cost = costValue;
     } else {
-      isMistake = true;
-      this.setState({
-        mistakes: {
-          ...mistakes,
-          cost: 'Не валид Number',
-        },
-      });
+      this.addMistake('cost', 'Error cost');
     }
   };
 
   checkDateValue = () => {
     const dateValue = this.inputDate.current?.value;
-    const { mistakes } = this.state;
 
     if (!dateValue) {
-      isMistake = true;
-      this.setState({
-        mistakes: {
-          ...mistakes,
-          date: 'Error',
-        },
-      });
-
+      this.addMistake('date', 'Error date');
       return;
     }
     if (dateValue) {
       correctValues.date = dateValue;
     } else {
-      isMistake = true;
-      this.setState({
-        mistakes: {
-          ...mistakes,
-          date: 'Error',
-        },
-      });
+      this.addMistake('date', 'Error date');
     }
   };
 
   handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    this.setState({ mistakes: {} });
     isMistake = false;
 
     this.checkTitleValue();
@@ -155,25 +113,29 @@ export class FormInner extends Component<IProps, IState> {
   };
 
   render() {
-    const { mistakes } = this.state;
+    const { state } = this;
     return (
       <div className="form-inner">
         <form onSubmit={this.handleFormSubmit}>
           <div className="form">
             <label htmlFor="text">Enter the City:</label>
             <input type="text" name="name" ref={this.inputTitle} />
-            {mistakes.title && <div>{mistakes.title}</div>}
+            {state.title && <div>{state.title}</div>}
           </div>
           <div className="form">
             <label htmlFor="number">Enter the cost:</label>
             <input type="number" name="name" ref={this.inputCost} />
-            {mistakes.cost && <div>{mistakes.cost}</div>}
+            {state.cost && <div>{state.cost}</div>}
 
           </div>
           <div className="form">
             <label htmlFor="data">From what date:</label>
             <input type="date" name="name" ref={this.inputDate} />
-            {mistakes.date && <div>{mistakes.date}</div>}
+            {state.date && <div>{state.date}</div>}
+          </div>
+          <div className="form">
+            <label htmlFor="radio">I agree...</label>
+            <input type="checkbox" />
           </div>
           <button type="submit" className="form__btn">Submit </button>
         </form>
