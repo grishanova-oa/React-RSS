@@ -7,8 +7,6 @@
       "esnext"
     ],
     "allowJs": true,
-    "noImplicitAny": true,
-    "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "noImplicitAny": true,

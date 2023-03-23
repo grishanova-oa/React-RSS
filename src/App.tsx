@@ -14,7 +14,7 @@ export class App extends Component {
         <Routes>
           <Route path="/" element={<HeaderComp />}>
             <Route path="" element={<MainPage />} />
-            <Route path="/form" element={<FormPage />} />
+            <Route path="form" element={<FormPage />} />
             <Route path="about" element={<AboutPage />} />
             <Route path="*" element={<Error404 />} />
           </Route>
