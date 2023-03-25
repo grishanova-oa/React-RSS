@@ -10,7 +10,7 @@ export class FormCards extends Component<ICard> {
     const { card } = this.props;
     return (
       <div className="form-cards">
-        {/* <img src={card.img} className="card__img" alt="" /> */}
+        <img src={card.file} className="card__img" alt="" />
         <div className="form-cards__description">
           <div className="form-cards__title">
             <div className="city">{card.title}</div>
@@ -19,7 +19,7 @@ export class FormCards extends Component<ICard> {
           <p className="added">{card.date}</p>
           <p className="cost">
             {card.cost}
-            $
+            {card.currency}
           </p>
         </div>
       </div>

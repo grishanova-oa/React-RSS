@@ -3,4 +3,6 @@ export interface IFormCard {
   title?: string;
   cost?: string;
   date?: string;
+  file?: string;
+  currency?: string;
 }
