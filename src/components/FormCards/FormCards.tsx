@@ -15,8 +15,9 @@ export class FormCards extends Component<ICard> {
           <div className="form-cards__title">
             <div className="city">{card.title}</div>
           </div>
-          {/* <p className="housing">{card.housing}</p> */}
+          <p className="housing">{card.select}</p>
           <p className="added">{card.date}</p>
+          <p className="description">{card.description}</p>
           <p className="cost">
             {card.cost}
             {card.currency}

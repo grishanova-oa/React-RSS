@@ -5,4 +5,9 @@ export interface IFormCard {
   date?: string;
   file?: string;
   currency?: string;
+  select?: string;
+  description?: string;
+  agree?: boolean;
+  saved?: string;
+  test?: string;
 }

@@ -26,6 +26,12 @@ export class FormInner extends Component<IProps, IState> {
 
   inputCurEuro: RefObject<HTMLInputElement> = React.createRef();
 
+  inputSelect: React.RefObject<HTMLSelectElement> = React.createRef();
+
+  inputCheckbox: React.RefObject<HTMLInputElement> = React.createRef();
+
+  inputDescription: RefObject<HTMLTextAreaElement> = React.createRef();
+
   constructor(props: IProps) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -35,6 +41,9 @@ export class FormInner extends Component<IProps, IState> {
     this.inputImage = React.createRef();
     this.inputCurDol = React.createRef();
     this.inputCurEuro = React.createRef();
+    this.inputSelect = React.createRef();
+    this.inputDescription = React.createRef();
+    this.inputCheckbox = React.createRef();
     this.state = {};
   }
 
@@ -109,15 +118,61 @@ export class FormInner extends Component<IProps, IState> {
     const curEuroValue = this.inputCurEuro.current?.value;
     const isEuro = this.inputCurEuro.current?.checked;
     const curDolValue = this.inputCurDol.current?.value;
-    console.log('euro', curEuroValue);
-    console.log('euro', isEuro);
 
-    console.log('dollar', curDolValue);
     if (curEuroValue === '€' && isEuro) {
-      // debugger;
       correctValues.currency = curEuroValue;
     } else {
       correctValues.currency = curDolValue;
+    }
+  };
+
+  checkSelectValue = () => {
+    const selectValue = this.inputSelect.current?.value;
+
+    switch (selectValue) {
+      case 'room':
+        correctValues.select = selectValue;
+        break;
+      case 'hostel':
+        correctValues.select = selectValue;
+        break;
+      case 'house':
+        correctValues.select = selectValue;
+        break;
+      case 'apartment':
+        correctValues.select = selectValue;
+        break;
+      case 'hotel':
+        correctValues.select = selectValue;
+        break;
+      case '':
+        this.addMistake('select', 'Error chose');
+        break;
+      default:
+        correctValues.select = '1';
+        break;
+    }
+  };
+
+  checkDescription = () => {
+    const selectDescription = this.inputDescription.current?.value;
+    // console.log(selectDescription);
+    if (!selectDescription) {
+      this.addMistake('description', 'Error description');
+    } else {
+      correctValues.description = selectDescription;
+    }
+  };
+
+  checkRadioCheckbox = () => {
+    const selectCheckbox = this.inputCheckbox.current?.checked;
+    const mistakeColor = this.inputCheckbox.current?.style.border;
+    console.log(mistakeColor);
+    // console.log('if', selectCheckbox);
+    if (!selectCheckbox) {
+      this.addMistake('agree', 'Error agree');
+      this.addMistake('test', 'test');
+      // .current.style.borderColor = 'red';
     }
   };
 
@@ -130,6 +185,10 @@ export class FormInner extends Component<IProps, IState> {
     this.checkDateValue();
     this.checkImageValue();
     this.checkCurrencyValue();
+    this.checkSelectValue();
+    this.checkDescription();
+    this.checkRadioCheckbox();
+
     if (!isMistake) {
       const { addNewCard } = this.props;
       // debugger;
@@ -147,6 +206,33 @@ export class FormInner extends Component<IProps, IState> {
       if (this.inputImage.current) {
         this.inputImage.current.value = '';
       }
+      if (this.inputCurEuro.current) {
+        this.inputCurEuro.current.checked = false;
+      }
+      if (this.inputSelect.current) {
+        this.inputSelect.current.value = '';
+      }
+      if (this.inputDescription.current) {
+        this.inputDescription.current.value = '';
+      }
+      if (this.inputCheckbox.current) {
+        this.inputCheckbox.current.checked = false;
+      }
+      this.setState({
+        title: '',
+        cost: '',
+        date: '',
+        file: '',
+        select: '',
+        description: '',
+        agree: '',
+      });
+      this.addMistake('saved', 'Card is Saved');
+      setTimeout(() => {
+        this.setState({
+          saved: '',
+        });
+      }, 4000);
     }
   };
 
@@ -157,41 +243,36 @@ export class FormInner extends Component<IProps, IState> {
         <form onSubmit={this.handleFormSubmit}>
           <div className="form">
             <label htmlFor="text">Enter the City:</label>
-            <input type="text" name="name" ref={this.inputTitle} />
-            {state.title && <div>{state.title}</div>}
+            <input type="text" name="name" className="test" ref={this.inputTitle} />
+            {state.title && <div className="red">{state.title}</div>}
           </div>
           <div className="form">
             <label htmlFor="number">Enter the cost:</label>
             <input type="number" name="name" ref={this.inputCost} />
-            {state.cost && <div>{state.cost}</div>}
+            {state.cost && <div className="red">{state.cost}</div>}
 
           </div>
           <div className="form">
             <label htmlFor="data">From what date:</label>
             <input type="date" name="name" min="2023-03-27" ref={this.inputDate} />
-            {state.date && <div>{state.date}</div>}
+            {state.date && <div className="red">{state.date}</div>}
           </div>
-          <div className="form">
-            <label htmlFor="radio">I agree...</label>
-            <input type="checkbox" required />
-          </div>
-          <div className="form-input">
+          <div className="form-input form-image">
             <label htmlFor="image-input">Image:</label>
             <input
               type="file"
               accept="image/jpeg,image/png,image/gif"
               id="image-input"
               ref={this.inputImage}
-              // onInput={this.handleImageInput}
             />
-            {state.file && <div>{state.file}</div>}
+            {state.file && <div className="red">{state.file}</div>}
           </div>
           <div className="form">
             <label htmlFor="radio">Choose currency:</label>
             <div className="radio__inner">
-              <label htmlFor="test1">
+              <label htmlFor="radio1">
                 <input
-                  id="test1"
+                  id="radio1"
                   type="radio"
                   value="$"
                   name="current"
@@ -200,9 +281,9 @@ export class FormInner extends Component<IProps, IState> {
                 />
                 Dollar
               </label>
-              <label htmlFor="test2">
+              <label htmlFor="radio2">
                 <input
-                  id="test2"
+                  id="radio2"
                   type="radio"
                   value="€"
                   name="current"
@@ -211,22 +292,43 @@ export class FormInner extends Component<IProps, IState> {
                 Euro
               </label>
             </div>
+          </div>
+          <div className="form">
             <div className="form-input">
               <label htmlFor="select">Choose type:</label>
-              <select className="select">
+              <select className="select" ref={this.inputSelect}>
                 <option label=" " />
+                <option value="room">Room</option>
+                <option value="hostel">Hostel</option>
+                <option value="hotel">Hotel</option>
                 <option value="house">House</option>
                 <option value="apartment">Apartment</option>
-                <option value="hotel">Hotel</option>
-                <option value="hotel">Hotel</option>
-                <option value="hotel">Hostel</option>
-                <option value="hotel">Room</option>
               </select>
+              {state.select && <div className="red">{state.select}</div>}
+            </div>
+          </div>
+          <div className="form">
+            <label htmlFor="radio">Describe the offer:</label>
+            <textarea
+              name="text"
+              rows={4}
+              placeholder="We are wait you..."
+              // className={state.test}
+              ref={this.inputDescription}
+            />
+            {state.description && <div className="red">{state.description}</div>}
+          </div>
+          <div className="form">
+            <div className="form">
+              <label htmlFor="radio">I agree...</label>
+
+              <input type="checkbox" ref={this.inputCheckbox} />
+              {state.agree && <div className="red">{state.agree}</div>}
             </div>
           </div>
           <div className="form">
             <label htmlFor="submit">
-              {/* Status: */}
+              {state.saved && <div className="red">{state.saved}</div>}
             </label>
             <button type="submit" className="form__btn">Submit </button>
           </div>
@@ -249,27 +351,3 @@ export class FormInner extends Component<IProps, IState> {
 // Если isMistake true - ничего не делаем
 // ждем исправления ошибок и нового сабмит.
 // 7. При новом сабмите сетаем isMistake false. Начинаем все с пункта 3
-
-// eslint-disable-next-line no-lone-blocks
-{ /*
-          <div className="form-input">
-            <label htmlFor="select">Choose type:</label>
-            <select className="select">
-              <option label=" " />
-              <option value="house">House</option>
-              <option value="apartment">Apartment</option>
-              <option value="hotel">Hotel</option>
-              <option value="hotel">Hotel</option>
-              <option value="hotel">Hostel</option>
-              <option value="hotel">Room</option>
-            </select>
-          </div>
-          <div className="form">
-            <label htmlFor="radio">Describe the offer:</label>
-            <textarea
-              name="text"
-              rows={4}
-              placeholder="We are wait you..."
-            />
-          </div>
- */ }
