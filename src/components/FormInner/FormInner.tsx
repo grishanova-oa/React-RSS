@@ -156,7 +156,6 @@ export class FormInner extends Component<IProps, IState> {
 
   checkDescription = () => {
     const selectDescription = this.inputDescription.current?.value;
-    // console.log(selectDescription);
     if (!selectDescription) {
       this.addMistake('description', 'Error description');
     } else {
@@ -166,13 +165,9 @@ export class FormInner extends Component<IProps, IState> {
 
   checkRadioCheckbox = () => {
     const selectCheckbox = this.inputCheckbox.current?.checked;
-    const mistakeColor = this.inputCheckbox.current?.style.border;
-    console.log(mistakeColor);
-    // console.log('if', selectCheckbox);
     if (!selectCheckbox) {
       this.addMistake('agree', 'Error agree');
       this.addMistake('test', 'test');
-      // .current.style.borderColor = 'red';
     }
   };
 
@@ -321,7 +316,6 @@ export class FormInner extends Component<IProps, IState> {
           <div className="form">
             <div className="form">
               <label htmlFor="radio">I agree...</label>
-
               <input type="checkbox" ref={this.inputCheckbox} />
               {state.agree && <div className="red">{state.agree}</div>}
             </div>

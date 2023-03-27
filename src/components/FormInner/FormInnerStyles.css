@@ -54,12 +54,13 @@ label {
 /*  */
  input {
     height: 35px;
-    /* border-color: #3e7dc0; */
+    border-color: #3e7dc0;
 }
 /* input[type="text"] {
     border: 1px solid rgb(61, 163, 26);
     border-radius: 5px;
  } */
+
 input:focus {
     color: #212529;
     background-color: #fff;
@@ -71,7 +72,7 @@ input:focus {
 .red {
     color: red;
     }
-    .test input[type="text"]  {
+input[type="text"]  {
     border: 1px solid red;
     border-color: rgb(104, 13, 27);
     color: red;
