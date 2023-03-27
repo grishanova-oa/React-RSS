@@ -56,18 +56,18 @@ export class FormInner extends Component<IProps, IState> {
     const titleValue = this.inputTitle.current?.value;
 
     if (!titleValue) {
-      this.addMistake('title', 'Error title');
+      this.addMistake('title', 'Add city');
 
       return;
     }
-
-    const isTitleValid = titleValue[0].toUpperCase() === titleValue[0] && titleValue.length > 4;
-    // && titleValue.indexOf('/^[^_a-zа-я]i')
+    const isValidText = /^[a-z\s]+$/i;
+    const isTitleValid = titleValue[0].toUpperCase() === titleValue[0] && titleValue.length
+    > 2 && titleValue.match(isValidText);
 
     if (isTitleValid) {
       correctValues.title = titleValue;
     } else {
-      this.addMistake('title', 'Error title');
+      this.addMistake('title', 'Use only latin letters with first capital');
     }
   };
 
@@ -75,17 +75,16 @@ export class FormInner extends Component<IProps, IState> {
     const costValue = this.inputCost.current?.value;
 
     if (!costValue) {
-      this.addMistake('cost', 'Error cost');
+      this.addMistake('cost', 'Add cost');
 
       return;
     }
-
-    const isCostValid = costValue.length < 4;
+    const isCostValid = costValue.length < 5 && +costValue > 0;
 
     if (isCostValid) {
       correctValues.cost = costValue;
     } else {
-      this.addMistake('cost', 'Error cost');
+      this.addMistake('cost', 'Use positive numbers!');
     }
   };
 
@@ -93,7 +92,7 @@ export class FormInner extends Component<IProps, IState> {
     const dateValue = this.inputDate.current?.value;
 
     if (!dateValue) {
-      this.addMistake('date', 'Error date');
+      this.addMistake('date', 'Add date');
       return;
     }
     if (dateValue) {
@@ -105,7 +104,7 @@ export class FormInner extends Component<IProps, IState> {
     const imageValue = this.inputImage.current?.files?.[0];
 
     if (!imageValue) {
-      this.addMistake('file', 'Error File');
+      this.addMistake('file', 'Add file!');
       return;
     }
     if (imageValue) {
@@ -118,7 +117,10 @@ export class FormInner extends Component<IProps, IState> {
     const curEuroValue = this.inputCurEuro.current?.value;
     const isEuro = this.inputCurEuro.current?.checked;
     const curDolValue = this.inputCurDol.current?.value;
-
+    if (!curDolValue && !curEuroValue) {
+      this.addMistake('currency', 'Choose current!');
+      return;
+    }
     if (curEuroValue === '€' && isEuro) {
       correctValues.currency = curEuroValue;
     } else {
@@ -146,7 +148,7 @@ export class FormInner extends Component<IProps, IState> {
         correctValues.select = selectValue;
         break;
       case '':
-        this.addMistake('select', 'Error chose');
+        this.addMistake('select', 'Choose type');
         break;
       default:
         correctValues.select = '1';
@@ -156,18 +158,28 @@ export class FormInner extends Component<IProps, IState> {
 
   checkDescription = () => {
     const selectDescription = this.inputDescription.current?.value;
+
     if (!selectDescription) {
-      this.addMistake('description', 'Error description');
-    } else {
+      this.addMistake('description', 'Enter description');
+
+      return;
+    }
+
+    const isValidText = /^[a-z\s]+$/i;
+    const isDescriptionValid = selectDescription[0].toUpperCase() === selectDescription[0]
+     && selectDescription.match(isValidText);
+
+    if (isDescriptionValid) {
       correctValues.description = selectDescription;
+    } else {
+      this.addMistake('description', 'Use only latin letters');
     }
   };
 
   checkRadioCheckbox = () => {
     const selectCheckbox = this.inputCheckbox.current?.checked;
     if (!selectCheckbox) {
-      this.addMistake('agree', 'Error agree');
-      this.addMistake('test', 'test');
+      this.addMistake('agree', 'Error');
     }
   };
 
@@ -186,7 +198,6 @@ export class FormInner extends Component<IProps, IState> {
 
     if (!isMistake) {
       const { addNewCard } = this.props;
-      // debugger;
       addNewCard(correctValues);
       correctValues = {};
       if (this.inputCost.current) {
@@ -243,7 +254,7 @@ export class FormInner extends Component<IProps, IState> {
           </div>
           <div className="form">
             <label htmlFor="number">Enter the cost:</label>
-            <input type="number" name="name" ref={this.inputCost} />
+            <input type="number" name="name" step="1" ref={this.inputCost} />
             {state.cost && <div className="red">{state.cost}</div>}
 
           </div>
@@ -252,8 +263,23 @@ export class FormInner extends Component<IProps, IState> {
             <input type="date" name="name" min="2023-03-27" ref={this.inputDate} />
             {state.date && <div className="red">{state.date}</div>}
           </div>
+          <div className="form">
+            <div className="form-input">
+              <label htmlFor="select">Choose type:</label>
+              <select className="select" ref={this.inputSelect}>
+                <option label=" " />
+                <option value="room">Room</option>
+                <option value="hostel">Hostel</option>
+                <option value="hotel">Hotel</option>
+                <option value="house">House</option>
+                <option value="apartment">Apartment</option>
+              </select>
+              {state.select && <div className="red">{state.select}</div>}
+            </div>
+          </div>
           <div className="form-input form-image">
-            <label htmlFor="image-input">Image:</label>
+            <p className="label">Add image</p>
+            <label htmlFor="image-input">Image</label>
             <input
               type="file"
               accept="image/jpeg,image/png,image/gif"
@@ -286,37 +312,24 @@ export class FormInner extends Component<IProps, IState> {
                 />
                 Euro
               </label>
+              {state.currency && <div className="red">{state.currency}</div>}
             </div>
           </div>
-          <div className="form">
-            <div className="form-input">
-              <label htmlFor="select">Choose type:</label>
-              <select className="select" ref={this.inputSelect}>
-                <option label=" " />
-                <option value="room">Room</option>
-                <option value="hostel">Hostel</option>
-                <option value="hotel">Hotel</option>
-                <option value="house">House</option>
-                <option value="apartment">Apartment</option>
-              </select>
-              {state.select && <div className="red">{state.select}</div>}
-            </div>
-          </div>
+
           <div className="form">
             <label htmlFor="radio">Describe the offer:</label>
             <textarea
               name="text"
               rows={4}
               placeholder="We are wait you..."
-              // className={state.test}
               ref={this.inputDescription}
             />
             {state.description && <div className="red">{state.description}</div>}
           </div>
           <div className="form">
             <div className="form">
-              <label htmlFor="radio">I agree...</label>
-              <input type="checkbox" ref={this.inputCheckbox} />
+              <label htmlFor="radio">I agree to the processing of personal data</label>
+              <input type="checkbox" className="input-checkbox" ref={this.inputCheckbox} />
               {state.agree && <div className="red">{state.agree}</div>}
             </div>
           </div>
@@ -331,17 +344,3 @@ export class FormInner extends Component<IProps, IState> {
     );
   }
 }
-
-// 1. Заполнить форму
-// 2. Сабмит формы
-// 3. Получение значений из каждого инпута, селектора и т.д
-// 4. Валидация каждого значения
-// 4.1 Для значений которые не прошли валидацию - добавить в state.mistakes новую ошибку
-// 4.2 Завести поле isMistake = false. Если появляется ошибка сететь ее в true
-// 4.3 Заводим обект в котором будем хранить значения, которые прошли валидацию (correctValues)
-
-// 6. После проверки всех полей проверить isMistake. Если false - валидация
-// пройдена, сохраняем значения (correctValues) формы в итоговый массив для отображения карт.
-// Если isMistake true - ничего не делаем
-// ждем исправления ошибок и нового сабмит.
-// 7. При новом сабмите сетаем isMistake false. Начинаем все с пункта 3

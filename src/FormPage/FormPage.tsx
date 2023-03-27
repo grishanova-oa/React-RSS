@@ -24,14 +24,16 @@ export class FormPage extends Component<{}, IState > {
 
     return (
       <div className="form__container">
-        <h2>Form</h2>
+        <h2>Add new CARD</h2>
         <FormInner addNewCard={this.addNewCard} />
-        {cards.map((card) => (
-          <FormCards
-            key={card.title}
-            card={card}
-          />
-        ))}
+        <div className="form__cards">
+          {cards.map((card) => (
+            <FormCards
+              key={card.title}
+              card={card}
+            />
+          ))}
+        </div>
       </div>
     );
   }
