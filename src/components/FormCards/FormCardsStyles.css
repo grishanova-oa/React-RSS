@@ -1,0 +1,11 @@
+
+.form-cards {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+flex-direction: column;
+font-size: 18px;
+cursor: pointer;
+border: 1px double rgb(181, 191, 206);
+border-radius: 5px;
+}
