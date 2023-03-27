@@ -253,8 +253,8 @@ export class FormInner extends Component<IProps, IState> {
             {state.title && <div className="red">{state.title}</div>}
           </div>
           <div className="form">
-            <label htmlFor="number">Enter the cost:</label>
-            <input type="number" name="name" step="1" ref={this.inputCost} />
+            <label htmlFor="cost">Enter the cost:</label>
+            <input id="cost" type="number" name="name" step="1" ref={this.inputCost} />
             {state.cost && <div className="red">{state.cost}</div>}
 
           </div>
@@ -319,6 +319,7 @@ export class FormInner extends Component<IProps, IState> {
           <div className="form">
             <label htmlFor="radio">Describe the offer:</label>
             <textarea
+              id="radio"
               name="text"
               rows={4}
               placeholder="We are wait you..."
@@ -337,7 +338,7 @@ export class FormInner extends Component<IProps, IState> {
             <label htmlFor="submit">
               {state.saved && <div className="red">{state.saved}</div>}
             </label>
-            <button type="submit" className="form__btn">Submit </button>
+            <button type="submit" value="Submit" className="form__btn">Submit </button>
           </div>
         </form>
       </div>

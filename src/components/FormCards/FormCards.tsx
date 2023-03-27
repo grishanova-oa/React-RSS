@@ -10,6 +10,7 @@ export class FormCards extends Component<ICard> {
     const { card } = this.props;
     return (
       <div className="form__card">
+        <p>New Card</p>
         <img src={card.file} className="form-card__img" alt="" />
         <div className="form-cards__description">
           <div className="form__city">{card.title}</div>
