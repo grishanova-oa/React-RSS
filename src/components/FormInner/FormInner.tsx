@@ -1,6 +1,8 @@
 import React, { Component, RefObject } from 'react';
+import { InputTitle } from '../InputTitle';
 import { IFormCard } from '../types';
 import './FormInnerStyles.css';
+import { checkTitleValid, isCostValid, isDescriptionValid } from './helpers';
 
 interface IState {
   [key: string]: string;
@@ -34,16 +36,6 @@ export class FormInner extends Component<IProps, IState> {
 
   constructor(props: IProps) {
     super(props);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.inputTitle = React.createRef();
-    this.inputCost = React.createRef();
-    this.inputDate = React.createRef();
-    this.inputImage = React.createRef();
-    this.inputCurDol = React.createRef();
-    this.inputCurEuro = React.createRef();
-    this.inputSelect = React.createRef();
-    this.inputDescription = React.createRef();
-    this.inputCheckbox = React.createRef();
     this.state = {};
   }
 
@@ -60,11 +52,8 @@ export class FormInner extends Component<IProps, IState> {
 
       return;
     }
-    const isValidText = /^[a-z\s]+$/i;
-    const isTitleValid = titleValue[0].toUpperCase() === titleValue[0] && titleValue.length
-    > 2 && titleValue.match(isValidText);
 
-    if (isTitleValid) {
+    if (checkTitleValid(titleValue)) {
       correctValues.title = titleValue;
     } else {
       this.addMistake('title', 'Use only latin letters with first capital');
@@ -79,9 +68,8 @@ export class FormInner extends Component<IProps, IState> {
 
       return;
     }
-    const isCostValid = costValue.length < 5 && +costValue > 0;
 
-    if (isCostValid) {
+    if (isCostValid(costValue)) {
       correctValues.cost = costValue;
     } else {
       this.addMistake('cost', 'Use positive numbers!');
@@ -93,9 +81,7 @@ export class FormInner extends Component<IProps, IState> {
 
     if (!dateValue) {
       this.addMistake('date', 'Add date');
-      return;
-    }
-    if (dateValue) {
+    } else {
       correctValues.date = dateValue;
     }
   };
@@ -105,11 +91,8 @@ export class FormInner extends Component<IProps, IState> {
 
     if (!imageValue) {
       this.addMistake('file', 'Add file!');
-      return;
-    }
-    if (imageValue) {
-      const newImgUrl = URL.createObjectURL(imageValue);
-      correctValues.file = newImgUrl;
+    } else {
+      correctValues.file = URL.createObjectURL(imageValue);
     }
   };
 
@@ -117,10 +100,6 @@ export class FormInner extends Component<IProps, IState> {
     const curEuroValue = this.inputCurEuro.current?.value;
     const isEuro = this.inputCurEuro.current?.checked;
     const curDolValue = this.inputCurDol.current?.value;
-    if (!curDolValue && !curEuroValue) {
-      this.addMistake('currency', 'Choose current!');
-      return;
-    }
     if (curEuroValue === '€' && isEuro) {
       correctValues.currency = curEuroValue;
     } else {
@@ -133,25 +112,14 @@ export class FormInner extends Component<IProps, IState> {
 
     switch (selectValue) {
       case 'room':
-        correctValues.select = selectValue;
-        break;
       case 'hostel':
-        correctValues.select = selectValue;
-        break;
       case 'house':
-        correctValues.select = selectValue;
-        break;
       case 'apartment':
-        correctValues.select = selectValue;
-        break;
       case 'hotel':
         correctValues.select = selectValue;
         break;
-      case '':
-        this.addMistake('select', 'Choose type');
-        break;
       default:
-        correctValues.select = '1';
+        this.addMistake('select', 'Choose type');
         break;
     }
   };
@@ -165,11 +133,7 @@ export class FormInner extends Component<IProps, IState> {
       return;
     }
 
-    const isValidText = /^[a-z\s]+$/i;
-    const isDescriptionValid = selectDescription[0].toUpperCase() === selectDescription[0]
-     && selectDescription.match(isValidText);
-
-    if (isDescriptionValid) {
+    if (isDescriptionValid(selectDescription)) {
       correctValues.description = selectDescription;
     } else {
       this.addMistake('description', 'Use only latin letters');
@@ -200,30 +164,13 @@ export class FormInner extends Component<IProps, IState> {
       const { addNewCard } = this.props;
       addNewCard(correctValues);
       correctValues = {};
-      if (this.inputCost.current) {
-        this.inputCost.current.value = '';
-      }
-      if (this.inputTitle.current) {
-        this.inputTitle.current.value = '';
-      }
-      if (this.inputDate.current) {
-        this.inputDate.current.value = '';
-      }
-      if (this.inputImage.current) {
-        this.inputImage.current.value = '';
-      }
-      if (this.inputCurEuro.current) {
-        this.inputCurEuro.current.checked = false;
-      }
-      if (this.inputSelect.current) {
-        this.inputSelect.current.value = '';
-      }
-      if (this.inputDescription.current) {
-        this.inputDescription.current.value = '';
-      }
-      if (this.inputCheckbox.current) {
-        this.inputCheckbox.current.checked = false;
-      }
+      this.inputCost.current!.value = '';
+      this.inputTitle.current!.value = '';
+      this.inputDate.current!.value = '';
+      this.inputImage.current!.value = '';
+      this.inputSelect.current!.value = '';
+      this.inputDescription.current!.value = '';
+      this.inputCheckbox.current!.checked = false;
       this.setState({
         title: '',
         cost: '',
@@ -247,11 +194,8 @@ export class FormInner extends Component<IProps, IState> {
     return (
       <div className="form-inner">
         <form onSubmit={this.handleFormSubmit}>
-          <div className="form">
-            <label htmlFor="text">Enter the City:</label>
-            <input type="text" name="name" className="test" ref={this.inputTitle} />
-            {state.title && <div className="red">{state.title}</div>}
-          </div>
+          <InputTitle title={state.title} inputTitleRef={this.inputTitle} />
+
           <div className="form">
             <label htmlFor="cost">Enter the cost:</label>
             <input id="cost" type="number" name="name" step="1" ref={this.inputCost} />

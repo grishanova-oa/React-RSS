@@ -9,3 +9,9 @@ test('form', () => {
 
   expect(title).toBeInTheDocument();
 });
+test('form 2', () => {
+  const element = render(<FormPage />);
+  const title = element.getByText(/Enter the City:/i);
+
+  expect(title).toBeInTheDocument();
+});
