@@ -11,7 +11,7 @@ type HeaderProps = {
   location: Location;
 };
 
-const getCurrentPage = (pathname: string) => {
+export const getCurrentPage = (pathname: string) => {
   let res = '';
 
   switch (pathname) {
@@ -33,7 +33,7 @@ const getCurrentPage = (pathname: string) => {
   return res;
 };
 
-class Header extends Component<HeaderProps, IHeaderState> {
+export class Header extends Component<HeaderProps, IHeaderState> {
   constructor(props: HeaderProps) {
     super(props);
     const { location } = this.props;
@@ -57,7 +57,7 @@ class Header extends Component<HeaderProps, IHeaderState> {
               <NavLink to="/" className="header_logo" />
               <div className="title">Lovely House</div>
               <h1>{currentPage}</h1>
-              <NavLink to="/" onClick={() => this.handleNavClick('Main')}>
+              <NavLink to="/" onClick={() => this.handleNavClick('Main')} aria-label="cost-input">
                 Main
               </NavLink>
               <NavLink to="/form" onClick={() => this.handleNavClick('Form')}>

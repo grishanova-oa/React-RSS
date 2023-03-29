@@ -1,6 +1,8 @@
 import React, { Component, RefObject } from 'react';
+import { InputTitle } from '../InputTitle';
 import { IFormCard } from '../types';
 import './FormInnerStyles.css';
+import { checkTitleValid, isCostValid, isDescriptionValid } from './helpers';
 
 interface IState {
   [key: string]: string;
@@ -34,16 +36,6 @@ export class FormInner extends Component<IProps, IState> {
 
   constructor(props: IProps) {
     super(props);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.inputTitle = React.createRef();
-    this.inputCost = React.createRef();
-    this.inputDate = React.createRef();
-    this.inputImage = React.createRef();
-    this.inputCurDol = React.createRef();
-    this.inputCurEuro = React.createRef();
-    this.inputSelect = React.createRef();
-    this.inputDescription = React.createRef();
-    this.inputCheckbox = React.createRef();
     this.state = {};
   }
 
@@ -56,18 +48,15 @@ export class FormInner extends Component<IProps, IState> {
     const titleValue = this.inputTitle.current?.value;
 
     if (!titleValue) {
-      this.addMistake('title', 'Error title');
+      this.addMistake('title', 'Add city');
 
       return;
     }
 
-    const isTitleValid = titleValue[0].toUpperCase() === titleValue[0] && titleValue.length > 4;
-    // && titleValue.indexOf('/^[^_a-zа-я]i')
-
-    if (isTitleValid) {
+    if (checkTitleValid(titleValue)) {
       correctValues.title = titleValue;
     } else {
-      this.addMistake('title', 'Error title');
+      this.addMistake('title', 'Use only latin letters with first capital');
     }
   };
 
@@ -75,17 +64,15 @@ export class FormInner extends Component<IProps, IState> {
     const costValue = this.inputCost.current?.value;
 
     if (!costValue) {
-      this.addMistake('cost', 'Error cost');
+      this.addMistake('cost', 'Add cost');
 
       return;
     }
 
-    const isCostValid = costValue.length < 4;
-
-    if (isCostValid) {
+    if (isCostValid(costValue)) {
       correctValues.cost = costValue;
     } else {
-      this.addMistake('cost', 'Error cost');
+      this.addMistake('cost', 'Use positive numbers!');
     }
   };
 
@@ -93,10 +80,8 @@ export class FormInner extends Component<IProps, IState> {
     const dateValue = this.inputDate.current?.value;
 
     if (!dateValue) {
-      this.addMistake('date', 'Error date');
-      return;
-    }
-    if (dateValue) {
+      this.addMistake('date', 'Add date');
+    } else {
       correctValues.date = dateValue;
     }
   };
@@ -105,12 +90,9 @@ export class FormInner extends Component<IProps, IState> {
     const imageValue = this.inputImage.current?.files?.[0];
 
     if (!imageValue) {
-      this.addMistake('file', 'Error File');
-      return;
-    }
-    if (imageValue) {
-      const newImgUrl = URL.createObjectURL(imageValue);
-      correctValues.file = newImgUrl;
+      this.addMistake('file', 'Add file!');
+    } else {
+      correctValues.file = URL.createObjectURL(imageValue);
     }
   };
 
@@ -118,7 +100,6 @@ export class FormInner extends Component<IProps, IState> {
     const curEuroValue = this.inputCurEuro.current?.value;
     const isEuro = this.inputCurEuro.current?.checked;
     const curDolValue = this.inputCurDol.current?.value;
-
     if (curEuroValue === '€' && isEuro) {
       correctValues.currency = curEuroValue;
     } else {
@@ -131,43 +112,38 @@ export class FormInner extends Component<IProps, IState> {
 
     switch (selectValue) {
       case 'room':
-        correctValues.select = selectValue;
-        break;
       case 'hostel':
-        correctValues.select = selectValue;
-        break;
       case 'house':
-        correctValues.select = selectValue;
-        break;
       case 'apartment':
-        correctValues.select = selectValue;
-        break;
       case 'hotel':
         correctValues.select = selectValue;
         break;
-      case '':
-        this.addMistake('select', 'Error chose');
-        break;
       default:
-        correctValues.select = '1';
+        this.addMistake('select', 'Choose type');
         break;
     }
   };
 
   checkDescription = () => {
     const selectDescription = this.inputDescription.current?.value;
+
     if (!selectDescription) {
-      this.addMistake('description', 'Error description');
-    } else {
+      this.addMistake('description', 'Enter description');
+
+      return;
+    }
+
+    if (isDescriptionValid(selectDescription)) {
       correctValues.description = selectDescription;
+    } else {
+      this.addMistake('description', 'Use only latin letters');
     }
   };
 
   checkRadioCheckbox = () => {
     const selectCheckbox = this.inputCheckbox.current?.checked;
     if (!selectCheckbox) {
-      this.addMistake('agree', 'Error agree');
-      this.addMistake('test', 'test');
+      this.addMistake('agree', 'Error');
     }
   };
 
@@ -186,33 +162,15 @@ export class FormInner extends Component<IProps, IState> {
 
     if (!isMistake) {
       const { addNewCard } = this.props;
-      // debugger;
       addNewCard(correctValues);
       correctValues = {};
-      if (this.inputCost.current) {
-        this.inputCost.current.value = '';
-      }
-      if (this.inputTitle.current) {
-        this.inputTitle.current.value = '';
-      }
-      if (this.inputDate.current) {
-        this.inputDate.current.value = '';
-      }
-      if (this.inputImage.current) {
-        this.inputImage.current.value = '';
-      }
-      if (this.inputCurEuro.current) {
-        this.inputCurEuro.current.checked = false;
-      }
-      if (this.inputSelect.current) {
-        this.inputSelect.current.value = '';
-      }
-      if (this.inputDescription.current) {
-        this.inputDescription.current.value = '';
-      }
-      if (this.inputCheckbox.current) {
-        this.inputCheckbox.current.checked = false;
-      }
+      this.inputCost.current!.value = '';
+      this.inputTitle.current!.value = '';
+      this.inputDate.current!.value = '';
+      this.inputImage.current!.value = '';
+      this.inputSelect.current!.value = '';
+      this.inputDescription.current!.value = '';
+      this.inputCheckbox.current!.checked = false;
       this.setState({
         title: '',
         cost: '',
@@ -236,14 +194,11 @@ export class FormInner extends Component<IProps, IState> {
     return (
       <div className="form-inner">
         <form onSubmit={this.handleFormSubmit}>
+          <InputTitle title={state.title} inputTitleRef={this.inputTitle} />
+
           <div className="form">
-            <label htmlFor="text">Enter the City:</label>
-            <input type="text" name="name" className="test" ref={this.inputTitle} />
-            {state.title && <div className="red">{state.title}</div>}
-          </div>
-          <div className="form">
-            <label htmlFor="number">Enter the cost:</label>
-            <input type="number" name="name" ref={this.inputCost} />
+            <label htmlFor="cost">Enter the cost:</label>
+            <input id="cost" type="number" name="name" step="1" ref={this.inputCost} />
             {state.cost && <div className="red">{state.cost}</div>}
 
           </div>
@@ -252,8 +207,23 @@ export class FormInner extends Component<IProps, IState> {
             <input type="date" name="name" min="2023-03-27" ref={this.inputDate} />
             {state.date && <div className="red">{state.date}</div>}
           </div>
+          <div className="form">
+            <div className="form-input">
+              <label htmlFor="select">Choose type:</label>
+              <select className="select" ref={this.inputSelect}>
+                <option label=" " />
+                <option value="room">Room</option>
+                <option value="hostel">Hostel</option>
+                <option value="hotel">Hotel</option>
+                <option value="house">House</option>
+                <option value="apartment">Apartment</option>
+              </select>
+              {state.select && <div className="red">{state.select}</div>}
+            </div>
+          </div>
           <div className="form-input form-image">
-            <label htmlFor="image-input">Image:</label>
+            <p className="label">Add image</p>
+            <label htmlFor="image-input">Image</label>
             <input
               type="file"
               accept="image/jpeg,image/png,image/gif"
@@ -286,37 +256,25 @@ export class FormInner extends Component<IProps, IState> {
                 />
                 Euro
               </label>
+              {state.currency && <div className="red">{state.currency}</div>}
             </div>
           </div>
-          <div className="form">
-            <div className="form-input">
-              <label htmlFor="select">Choose type:</label>
-              <select className="select" ref={this.inputSelect}>
-                <option label=" " />
-                <option value="room">Room</option>
-                <option value="hostel">Hostel</option>
-                <option value="hotel">Hotel</option>
-                <option value="house">House</option>
-                <option value="apartment">Apartment</option>
-              </select>
-              {state.select && <div className="red">{state.select}</div>}
-            </div>
-          </div>
+
           <div className="form">
             <label htmlFor="radio">Describe the offer:</label>
             <textarea
+              id="radio"
               name="text"
               rows={4}
               placeholder="We are wait you..."
-              // className={state.test}
               ref={this.inputDescription}
             />
             {state.description && <div className="red">{state.description}</div>}
           </div>
           <div className="form">
             <div className="form">
-              <label htmlFor="radio">I agree...</label>
-              <input type="checkbox" ref={this.inputCheckbox} />
+              <label htmlFor="radio">I agree to the processing of personal data</label>
+              <input type="checkbox" className="input-checkbox" ref={this.inputCheckbox} />
               {state.agree && <div className="red">{state.agree}</div>}
             </div>
           </div>
@@ -324,24 +282,10 @@ export class FormInner extends Component<IProps, IState> {
             <label htmlFor="submit">
               {state.saved && <div className="red">{state.saved}</div>}
             </label>
-            <button type="submit" className="form__btn">Submit </button>
+            <button type="submit" value="Submit" className="form__btn">Submit </button>
           </div>
         </form>
       </div>
     );
   }
 }
-
-// 1. Заполнить форму
-// 2. Сабмит формы
-// 3. Получение значений из каждого инпута, селектора и т.д
-// 4. Валидация каждого значения
-// 4.1 Для значений которые не прошли валидацию - добавить в state.mistakes новую ошибку
-// 4.2 Завести поле isMistake = false. Если появляется ошибка сететь ее в true
-// 4.3 Заводим обект в котором будем хранить значения, которые прошли валидацию (correctValues)
-
-// 6. После проверки всех полей проверить isMistake. Если false - валидация
-// пройдена, сохраняем значения (correctValues) формы в итоговый массив для отображения карт.
-// Если isMistake true - ничего не делаем
-// ждем исправления ошибок и нового сабмит.
-// 7. При новом сабмите сетаем isMistake false. Начинаем все с пункта 3
