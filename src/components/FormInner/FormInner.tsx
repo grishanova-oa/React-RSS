@@ -195,7 +195,6 @@ export class FormInner extends Component<IProps, IState> {
       <div className="form-inner">
         <form onSubmit={this.handleFormSubmit}>
           <InputTitle title={state.title} inputTitleRef={this.inputTitle} />
-
           <div className="form">
             <label htmlFor="cost">Enter the cost:</label>
             <input id="cost" type="number" name="name" step="1" ref={this.inputCost} />

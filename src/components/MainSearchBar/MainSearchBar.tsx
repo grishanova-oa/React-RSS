@@ -1,50 +1,48 @@
-import React, { ChangeEvent, Component } from 'react';
+import React, {
+  ChangeEvent, useEffect, useState,
+} from 'react';
 import './MainSearchBarStyles.css';
 
-export class MainSearchBar extends Component<{}, { search: string }> {
-  constructor(props: {}) {
-    super(props);
+export const MainSearchBar = () => {
+  const initInputValue = localStorage.getItem('inputValue');
+  const searchTest = initInputValue ? JSON.parse(initInputValue) : '';
+  const [search, setSearch] = useState(searchTest);
 
-    const initInputValue = localStorage.getItem('inputValue');
-    const search = initInputValue ? JSON.parse(initInputValue) : '';
-    this.state = { search };
-  }
-
-  componentWillUnmount() {
-    const { search } = this.state;
-
+  useEffect(() => () => {
     localStorage.setItem('inputValue', JSON.stringify(search));
-  }
+  }, []);
 
-  saveValueToLocalStorage = () => {
-    const { search } = this.state;
+  const saveValueToLocalStorage = () => {
     localStorage.setItem('search', search);
   };
-
-  onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ search: event.target.value });
+  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const inputChange = event.target.value;
+    setSearch(inputChange);
   };
 
-  render() {
-    const { search } = this.state;
+  return (
+    <form className="search-bar">
+      <label>
+        <input
+          value={search}
+          onChange={onInputChange}
+          className="search"
+          type="search"
+          placeholder="..."
+          name=""
+          id=""
+        />
+      </label>
+      <button
+        type="button"
+        aria-label="label"
+        className="search__btn"
+        onClick={() => saveValueToLocalStorage()}
+      >
+        Search
+      </button>
+    </form>
+  );
+};
 
-    return (
-      <form className="search-bar">
-        <label>
-          <input
-            value={search}
-            onChange={this.onInputChange}
-            className="search"
-            type="search"
-            placeholder="..."
-            name=""
-            id=""
-          />
-        </label>
-        <button type="button" aria-label="label" className="search__btn" onClick={this.saveValueToLocalStorage}>
-          Search
-        </button>
-      </form>
-    );
-  }
-}
+export {};
