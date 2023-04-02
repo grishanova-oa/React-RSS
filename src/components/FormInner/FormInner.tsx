@@ -33,7 +33,10 @@ export const FormInner = ({ addNewCard }: IProps) => {
       data.inputImage = newPathFile;
     }
     addNewCard(data);
-    setSuccessMsg('Card is done!');
+    setSuccessMsg('Congratulation! Card is created!');
+    setTimeout(() => {
+      setSuccessMsg('');
+    }, 4000);
     reset();
     setNewPathFile(null);
   }
@@ -150,8 +153,8 @@ export const FormInner = ({ addNewCard }: IProps) => {
               />
               Euro
             </label>
-            {errors.current && <p className="red">!!!!</p>}
           </div>
+          {errors.current && <p className="red">Please, choose current</p>}
         </div>
         <div className="form">
           <label htmlFor="radio">Describe the offer:</label>
@@ -191,9 +194,8 @@ export const FormInner = ({ addNewCard }: IProps) => {
             <button type="submit" value="Submit" className="form__btn">Submit</button>
           </label>
         </div>
-        {successMsg && <p className="red">{successMsg}</p>}
-
       </form>
+      {successMsg && <p className="red font">{successMsg}</p>}
     </div>
   );
 };
