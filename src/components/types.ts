@@ -1,13 +1,9 @@
 export interface IFormCard {
-  id?: number;
-  title?: string;
-  cost?: string;
-  date?: string;
-  file?: string;
+  inputTitle: string;
+  inputCost: string;
+  date: string;
+  inputImage: string | undefined;
+  inputSelect: string;
+  inputDescription: string;
   currency?: string;
-  select?: string;
-  description?: string;
-  agree?: boolean;
-  saved?: string;
-  test?: string;
 }
