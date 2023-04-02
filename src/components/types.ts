@@ -6,4 +6,5 @@ export interface IFormCard {
   inputSelect: string;
   inputDescription: string;
   current: string;
+  inputCheckbox: boolean;
 }

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IFormCard } from '../types';
@@ -9,28 +7,35 @@ interface IProps {
   addNewCard: (card: IFormCard) => void;
 }
 
+interface Event<T = EventTarget> {
+  target: T;
+}
+
 export const FormInner = ({ addNewCard }: IProps) => {
   const [successMsg, setSuccessMsg] = useState('');
-  // const [selectedFile, setSelectedFile] = useState({});
-  let newPathFile: string;
-  const changeHandler = (event: any) => {
-    const pathFile = event.target.files[0];
-    newPathFile = URL.createObjectURL(pathFile);
-    // setSelectedFile(newPathFile);
+  const [newPathFile, setNewPathFile] = useState<string | null>(null);
+
+  const changeHandler = ({ target }: Event<HTMLInputElement>) => {
+    if (target.files) {
+      const pathFile = target.files[0];
+      setNewPathFile(URL.createObjectURL(pathFile));
+    }
   };
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm<IFormCard>();
 
-  function onSubmit(data: any) {
-    data.inputImage = newPathFile;
-    // console.log(data.current);
+  function onSubmit(data: IFormCard) {
+    if (newPathFile) {
+      data.inputImage = newPathFile;
+    }
     addNewCard(data);
     setSuccessMsg('Card is done!');
     reset();
+    setNewPathFile(null);
   }
 
   return (
@@ -134,8 +139,6 @@ export const FormInner = ({ addNewCard }: IProps) => {
                   required: 'Please select your gender',
                 })}
               />
-              {errors.inputCurDol?.type === 'required' && (
-              <div className="red">Please, choose</div>)}
               Dollar
             </label>
             <label htmlFor="radio2">

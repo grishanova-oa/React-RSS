@@ -1,12 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './AboutPageStyles.css';
 
-export class AboutPage extends Component {
-  render() {
-    return (
-      <div className="about">
-        <p>AboutPage</p>
-      </div>
-    );
-  }
-}
+export const AboutPage = () => (
+  <div className="about">
+    <p>AboutPage</p>
+  </div>
+);
