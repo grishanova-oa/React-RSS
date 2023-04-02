@@ -5,5 +5,5 @@ export interface IFormCard {
   inputImage: string | undefined;
   inputSelect: string;
   inputDescription: string;
-  currency?: string;
+  current: string;
 }

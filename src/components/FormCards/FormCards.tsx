@@ -16,7 +16,7 @@ export const FormCards = ({ card }: ICard) => (
       <p className="added">{card.date}</p>
       <p className="cost">
         {card.inputCost}
-        {card.currency}
+        {card.current}
       </p>
       <p className="form__description">{card.inputDescription}</p>
     </div>

@@ -11,13 +11,13 @@ interface IProps {
 
 export const FormInner = ({ addNewCard }: IProps) => {
   const [successMsg, setSuccessMsg] = useState('');
-  const [selectedFile, setSelectedFile] = useState({});
-
+  // const [selectedFile, setSelectedFile] = useState({});
+  let newPathFile: string;
   const changeHandler = (event: any) => {
     const pathFile = event.target.files[0];
-    const newPathFile = URL.createObjectURL(pathFile);
+    newPathFile = URL.createObjectURL(pathFile);
     console.log(newPathFile);
-    setSelectedFile(newPathFile);
+    // setSelectedFile(newPathFile);
   };
   const {
     register,
@@ -28,6 +28,8 @@ export const FormInner = ({ addNewCard }: IProps) => {
 
   function onSubmit(data: any) {
     console.log(data);
+    data.inputImage = newPathFile;
+    console.log(data.current);
     addNewCard(data);
     setSuccessMsg('Card is done!');
     reset();
@@ -116,10 +118,6 @@ export const FormInner = ({ addNewCard }: IProps) => {
             id="image-input"
             {...register('inputImage', {
               required: true,
-              // validate: {
-              // acceptedFormat: (files: FileList | null)
-              //  => (files && ['image/jpg', 'image/png'].includes(files[0].type)) || 'error',
-              // },
             })}
             onChange={changeHandler}
           />
@@ -134,9 +132,12 @@ export const FormInner = ({ addNewCard }: IProps) => {
                 id="radio1"
                 type="radio"
                 value="$"
-                defaultChecked
-                {...register('inputCurDol')}
+                {...register('current', {
+                  required: 'Please select your gender',
+                })}
               />
+              {errors.inputCurDol?.type === 'required' && (
+              <div className="red">Please, choose</div>)}
               Dollar
             </label>
             <label htmlFor="radio2">
@@ -144,10 +145,11 @@ export const FormInner = ({ addNewCard }: IProps) => {
                 id="radio2"
                 type="radio"
                 value="€"
-                {...register('inputCurEuro')}
+                {...register('current')}
               />
               Euro
             </label>
+            {errors.current && <p className="red">!!!!</p>}
           </div>
         </div>
         <div className="form">
