@@ -16,7 +16,6 @@ export const FormInner = ({ addNewCard }: IProps) => {
   const changeHandler = (event: any) => {
     const pathFile = event.target.files[0];
     newPathFile = URL.createObjectURL(pathFile);
-    console.log(newPathFile);
     // setSelectedFile(newPathFile);
   };
   const {
@@ -27,9 +26,8 @@ export const FormInner = ({ addNewCard }: IProps) => {
   } = useForm();
 
   function onSubmit(data: any) {
-    console.log(data);
     data.inputImage = newPathFile;
-    console.log(data.current);
+    // console.log(data.current);
     addNewCard(data);
     setSuccessMsg('Card is done!');
     reset();
