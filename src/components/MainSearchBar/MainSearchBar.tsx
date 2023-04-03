@@ -9,12 +9,11 @@ export const MainSearchBar = () => {
   const [search, setSearch] = useState(searchTest);
 
   useEffect(() => () => {
-    localStorage.setItem('inputValue', JSON.stringify(search));
-  }, []);
+    if (search) {
+      localStorage.setItem('search', JSON.stringify(search));
+    }
+  }, [search]);
 
-  const saveValueToLocalStorage = () => {
-    localStorage.setItem('search', search);
-  };
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputChange = event.target.value;
     setSearch(inputChange);
@@ -37,12 +36,9 @@ export const MainSearchBar = () => {
         type="button"
         aria-label="label"
         className="search__btn"
-        onClick={() => saveValueToLocalStorage()}
       >
         Search
       </button>
     </form>
   );
 };
-
-export {};
