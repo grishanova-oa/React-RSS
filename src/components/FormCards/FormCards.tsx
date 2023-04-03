@@ -1,24 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { IFormCard } from '../types';
 import './FormCardsStyles.css';
 
 interface ICard {
   card: IFormCard;
 }
-
-export const FormCards = ({ card }: ICard) => (
-  <div className="form__card">
-    <p>New Card</p>
-    <img src={card.inputImage} className="form-card__img" alt="" />
-    <div className="form-cards__description">
-      <div className="form__city">{card.inputTitle}</div>
-      <p className="housing">{card.inputSelect?.toUpperCase()}</p>
-      <p className="added">{card.date}</p>
-      <p className="cost">
-        {card.inputCost}
-        {card.current}
-      </p>
-      <p className="form__description">{card.inputDescription}</p>
-    </div>
-  </div>
-);
+export class FormCards extends Component<ICard> {
+  render() {
+    const { card } = this.props;
+    return (
+      <div className="form__card">
+        <p>New Card</p>
+        <img src={card.file} className="form-card__img" alt="" />
+        <div className="form-cards__description">
+          <div className="form__city">{card.title}</div>
+          <p className="housing">{card.select?.toUpperCase()}</p>
+          <p className="added">{card.date}</p>
+          <p className="cost">
+            {card.cost}
+            {card.currency}
+          </p>
+          <p className="form__description">{card.description}</p>
+        </div>
+      </div>
+    );
+  }
+}
