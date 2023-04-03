@@ -1,0 +1,41 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "airbnb",
+       "airbnb-typescript"
+    ],
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "import/prefer-default-export": "off",
+        "react/function-component-definition": "off",
+        "linebreak-style": 0,
+        "@typescript-eslint/no-explicit-any": "error",
+        "no-param-reassign": 0,
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+        "jsx-a11y/label-has-associated-control": ["error", {
+            "required": {
+              "some": ["nesting", "id"]
+            }
+          }],
+          "jsx-a11y/label-has-for": ["error", {
+            "required": {
+              "some": ["nesting", "id"]
+            }
+          }],
+          "no-useless-constructor": 0,
+          "react/prefer-stateless-function": [0, { "ignorePureComponents": true }]
+          
+    }
+}
