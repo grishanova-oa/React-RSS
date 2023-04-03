@@ -1,19 +1,18 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { FormCards } from './FormCards';
+import { FormCards } from '.';
+import { IFormCard } from '../types';
 
-const card = {
-  title: 'titleMock',
-  cost: 'constMock',
+const card: IFormCard = {
+  inputTitle: 'titleMock',
+  inputCost: 'constMock',
   date: 'Mock',
-  file: 'Mock',
-  currency: 'Mock',
-  select: 'Mock',
-  description: 'Mock',
-  agree: true,
-  saved: 'Mock',
-  test: 'Mock',
+  inputImage: 'Mock',
+  current: 'Mock',
+  inputSelect: 'Mock',
+  inputDescription: 'Mock',
+  inputCheckbox: true,
 };
 
 test('form', () => {
