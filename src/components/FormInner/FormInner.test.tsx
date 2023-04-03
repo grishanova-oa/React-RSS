@@ -26,6 +26,11 @@ test('checks button from the AboutPage 1111', () => {
   expect(input).toHaveAttribute('type', 'submit');
 });
 
+test('renders from property', () => {
+  const element = render(<FormInner addNewCard={() => jest.fn()} />);
+  const inputId = element.getByLabelText(/Describe the offer:/i);
+  expect(inputId).toHaveAttribute('name', 'text');
+});
 test('renders from property 111 ', () => {
   const element = render(<FormInner addNewCard={() => jest.fn()} />);
   const placeHolder = element.getByPlaceholderText(/We are wait you.../i);

@@ -4,18 +4,20 @@ import '@testing-library/jest-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { getCurrentPage, Header } from './Header';
 
+const location = {} as Location;
+
 describe('Texts in document', () => {
   it('it checks About us text', () => {
-    const element = render(<BrowserRouter><Header /></BrowserRouter>);
+    const element = render(<BrowserRouter><Header location={location} /></BrowserRouter>);
     const title = element.getByText(/About us/i);
 
     expect(title).toBeInTheDocument();
   });
   it('it checks Main test', () => {
-    const element = render(<BrowserRouter><Header /></BrowserRouter>);
-    const elemList = element.getAllByText(/Main/i);
+    const element = render(<BrowserRouter><Header location={location} /></BrowserRouter>);
+    const title = element.getByText(/Main/i);
 
-    expect(elemList.length).toEqual(2);
+    expect(title).toBeInTheDocument();
   });
 });
 

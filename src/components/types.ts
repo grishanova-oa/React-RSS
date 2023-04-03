@@ -1,10 +1,13 @@
 export interface IFormCard {
-  inputTitle: string;
-  inputCost: string;
-  date: string;
-  inputImage: string | undefined;
-  inputSelect: string;
-  inputDescription: string;
-  current: string;
-  inputCheckbox: boolean;
+  id?: number;
+  title?: string;
+  cost?: string;
+  date?: string;
+  file?: string;
+  currency?: string;
+  select?: string;
+  description?: string;
+  agree?: boolean;
+  saved?: string;
+  test?: string;
 }
