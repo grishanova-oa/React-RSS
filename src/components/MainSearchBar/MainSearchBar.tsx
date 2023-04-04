@@ -4,7 +4,7 @@ import React, {
 import './MainSearchBarStyles.css';
 
 export const MainSearchBar = () => {
-  const initInputValue = localStorage.getItem('inputValue');
+  const initInputValue = localStorage.getItem('search');
   const searchTest = initInputValue ? JSON.parse(initInputValue) : '';
   const [search, setSearch] = useState(searchTest);
 
