@@ -1,39 +1,37 @@
 import React from 'react';
 import './CardsStyles.css';
+import { IListFilm } from '../types';
 
-interface IAnnouncement {
-  id: number;
-  housing: string;
-  img: string;
-  cost: number;
-  city: string;
-  added: string;
-  rating: string;
-}
 interface ICards {
-  item: IAnnouncement;
+  item: IListFilm;
 }
 
-export const Cards = ({ item } : ICards) => (
-  <div className="card">
-    <img src={item.img} className="card__img" alt="" />
-    <div className="description">
-      <div className="card__title">
-        <div className="city">{item.city}</div>
-        <div className="card__rating">
-          <div className="card__star" />
-          <p className="rating">{item.rating}</p>
+export const Cards = ({ item } : ICards) => {
+  const posterPath = item.poster_path;
+  const noPath = 'https://w0.peakpx.com/wallpaper/354/573/HD-wallpaper-no-love-here-heart-no-love-sayings-sign-white-heart.jpg';
+  let actualPath: string;
+
+  if (posterPath) {
+    actualPath = `https://image.tmdb.org/t/p/w300/${posterPath}`;
+  } else {
+    actualPath = noPath;
+  }
+  return (
+    <div className="card">
+      <img src={actualPath} className="card__img" alt="" />
+      <div className="city">{item.original_title}</div>
+      <div className="description">
+        <div className="card__title">
+          <p className="added">{item.release_date.substring(0, 4)}</p>
+          <div className="card__rating">
+            <div className="card__star" />
+            <p className="rating">{item.vote_average}</p>
+          </div>
+        </div>
+        <div className="card__cost">
+          <div className="cost">{item.overview}</div>
         </div>
       </div>
-      <p className="housing">{item.housing}</p>
-      <p className="added">{item.added}</p>
-      <div className="card__cost">
-        <p className="cost">
-          {item.cost}
-          $
-        </p>
-        <button type="button" aria-label="label" className="card__message" />
-      </div>
     </div>
-  </div>
-);
+  );
+};
