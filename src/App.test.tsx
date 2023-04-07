@@ -6,7 +6,7 @@ import { App } from './App';
 
 test('checks text from the header', () => {
   const element = render(<BrowserRouter><App /></BrowserRouter>);
-  const lovelyHouse = element.getByText(/Lovely House/i);
+  const lovelyHouse = element.getByText(/Search/i);
 
   expect(lovelyHouse).toBeInTheDocument();
 });
