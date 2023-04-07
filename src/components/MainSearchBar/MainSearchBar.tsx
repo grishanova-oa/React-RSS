@@ -2,7 +2,12 @@ import React, {
   ChangeEvent, useEffect, useState,
 } from 'react';
 import './MainSearchBarStyles.css';
+// import { IListFilm } from '../types';
 
+// interface IMainSearch {
+//   listFilm: IListFilm[];
+//   setListFilm: () => void | undefined;
+// }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const MainSearchBar = ({ listFilm, setListFilm }: any) => {
   const initInputValue = localStorage.getItem('search');

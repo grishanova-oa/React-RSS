@@ -25,7 +25,6 @@
     margin: 5px 0;
 
 }
-.card__rating,
 .card__cost {
     display: flex;
     justify-content: center;
@@ -39,13 +38,7 @@
     overflow: hidden;
     padding-left: 5px;
 }
-.card__star {
-    background: url('../../assets/svg/1828961.png') center no-repeat;
-    width: 15px;
-    background-size: contain;
-    height: 15px;
-    margin-right: 5px;
-}
+
 .description {
     display: flex;
     flex-direction: column;
