@@ -39,17 +39,19 @@ export const Header = () => {
         <div className="header">
           <div className="header_inner">
             <NavLink to="/" className="header_logo" />
-            <div className="title">Lovely House</div>
+            {/* <div className="title">Lovely Movie</div> */}
             <h1>{currentPage}</h1>
-            <NavLink to="/" onClick={() => handleNavClick('Main')} aria-label="cost-input">
-              Main
-            </NavLink>
-            <NavLink to="/form" onClick={() => handleNavClick('Form')}>
-              Form
-            </NavLink>
-            <NavLink to="/about" onClick={() => handleNavClick('About')}>
-              About us
-            </NavLink>
+            <div className="header__nav">
+              <NavLink to="/" onClick={() => handleNavClick('Main')} aria-label="cost-input">
+                Main
+              </NavLink>
+              <NavLink to="/form" onClick={() => handleNavClick('Form')}>
+                Form
+              </NavLink>
+              <NavLink to="/about" onClick={() => handleNavClick('About')}>
+                About us
+              </NavLink>
+            </div>
           </div>
         </div>
       </header>

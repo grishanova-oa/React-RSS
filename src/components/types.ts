@@ -15,4 +15,6 @@ export interface IListFilm {
   vote_average: number;
   overview: string;
   poster_path: string;
+  original_language: string;
+  img: string;
 }

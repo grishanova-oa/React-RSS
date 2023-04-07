@@ -5,8 +5,6 @@ import { CardDetailed } from '../CardDetailed';
 
 interface ICards {
   item: IListFilm;
-  // setIsShowInfo: (isOpen: boolean) => void;
-
 }
 
 export const Cards = ({ item } : ICards) => {
@@ -23,10 +21,9 @@ export const Cards = ({ item } : ICards) => {
   }
   return (
     <>
-      {' '}
       <button className="card" type="button" onClick={() => setIsShowInfo(true)}>
         <img src={actualPath} className="card__img" alt="" />
-        <div className="city">{item.original_title}</div>
+        <div className="card__title">{item.original_title}</div>
         <div className="description">
           <div className="card__title">
             <p className="added">{item.release_date.substring(0, 4)}</p>
