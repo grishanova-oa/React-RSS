@@ -8,6 +8,9 @@ interface IMainSearch {
   listFilm: IListFilm[];
   setListFilm: (film: IListFilm[]) => void;
 }
+
+const baseUrl = 'https://api.themoviedb.org/3/search/movie?api_key=60e12f358c2229eee542fbb16a0630ae&query=';
+
 export const MainSearchBar = ({ listFilm, setListFilm }: IMainSearch) => {
   const initInputValue = localStorage.getItem('search');
   const searchTest = initInputValue ? JSON.parse(initInputValue) : '';
@@ -24,7 +27,6 @@ export const MainSearchBar = ({ listFilm, setListFilm }: IMainSearch) => {
     const inputChange = event.target.value;
     setSearch(inputChange);
   };
-  const baseUrl = 'https://api.themoviedb.org/3/search/movie?api_key=60e12f358c2229eee542fbb16a0630ae&query=';
 
   async function fetchMovies() {
     try {
@@ -63,13 +65,15 @@ export const MainSearchBar = ({ listFilm, setListFilm }: IMainSearch) => {
             className="search"
             type="search"
             placeholder="..."
-            name=""
-            id=""
+            name="searchInput"
+            aria-label="searchInput"
+            id="searchInput"
           />
         </label>
         <button
           type="button"
-          aria-label="label"
+          aria-label="sendButton"
+          id="sendButton"
           className="search__btn"
           onClick={saveValueToLocalStorage}
         >
