@@ -5,13 +5,12 @@ import './MainSearchBarStyles.css';
 import { IListFilm } from '../types';
 
 interface IMainSearch {
-  listFilm: IListFilm[];
   setListFilm: (film: IListFilm[]) => void;
 }
 
 const baseUrl = 'https://api.themoviedb.org/3/search/movie?api_key=60e12f358c2229eee542fbb16a0630ae&query=';
 
-export const MainSearchBar = ({ listFilm, setListFilm }: IMainSearch) => {
+export const MainSearchBar = ({ setListFilm }: IMainSearch) => {
   const initInputValue = localStorage.getItem('search');
   const searchTest = initInputValue ? JSON.parse(initInputValue) : '';
   const [search, setSearch] = useState(searchTest);
@@ -23,21 +22,19 @@ export const MainSearchBar = ({ listFilm, setListFilm }: IMainSearch) => {
     }
   }, [search]);
 
-  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const inputChange = event.target.value;
-    setSearch(inputChange);
+  const onInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    setSearch(target.value);
   };
 
   async function fetchMovies() {
     try {
       setIsShowLoader(true);
-      const response = await fetch(`${baseUrl}=${search}`);
+      const response = await fetch(`${baseUrl}${search || 'the'}`);
       if (response.ok) {
         setTimeout(async () => {
           setIsShowLoader(false);
           const body = await response.json();
-          listFilm = body.results;
-          setListFilm(listFilm);
+          setListFilm(body.results);
           return body;
         }, 500);
       }

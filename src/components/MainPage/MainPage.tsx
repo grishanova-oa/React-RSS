@@ -9,7 +9,7 @@ export const MainPage = () => {
 
   return (
     <div className="main">
-      <MainSearchBar listFilm={listFilm} setListFilm={setListFilm} />
+      <MainSearchBar setListFilm={setListFilm} />
       <div className="cards">
         {listFilm.map((item) => (
           <Cards
@@ -17,6 +17,7 @@ export const MainPage = () => {
             item={item}
           />
         ))}
+        {listFilm.length === 0 && <div>Nothing to show</div>}
       </div>
     </div>
   );
