@@ -1,0 +1,114 @@
+.modal {
+    align-items: center;
+    background: hsla(0,0%,5%,.8);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+    overflow-x: hidden;
+}
+.modal__inner {
+    color: #0b0320;
+    background-color: #BFE2FF;
+    padding: 10px;
+    border: 1px solid #3e3d8c;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px #d3d7e4, -23px 0 20px -23px rgb(180 178 207 / 80%), 23px 0 20px -23px rgb(193 189 218 / 80%), 0 0 40px rgba(0, 0, 0, .1) inset;
+}
+.modal__info {
+    display: flex;
+    width: 700px;
+    padding: 10px;
+} 
+.modal__back__btn {
+    display: flex;
+    justify-content: end;
+}
+.info__film {
+    color: #0b0320;
+    display: flex;
+    max-width: 600px;
+    background-color: #BFE2FF;  
+    flex-direction: column;
+    
+} 
+.modal__img {
+    width: 250px;
+    height: 350px;
+    border: 1px double rgb(74 79 86);
+    border-radius: 5px;
+    object-fit: cover;
+}
+.modal__text {
+    margin-left: 20px;
+
+}
+.card__star {
+    background: url('../../assets/svg/1828961.png') center no-repeat;
+    width: 15px;
+    background-size: contain;
+    height: 15px;
+    margin-right: 5px;
+}
+.card__rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal__btn {
+    width: 25px;
+    height: 25px;
+    box-shadow: 0 3px 26px rgb(205 206 228 / 70%), 0 3px 30px rgb(168 175 214 / 50%);
+    border: 1px solid #0c1733;
+    border-radius: 50%;
+    background: #BFE2FF;
+    position: relative;
+    display: block;
+    z-index: 100;
+    cursor: pointer;
+}
+.modal__btn:before,
+.modal__btn:after {
+    content: '';
+    width: 80%;
+    height: 2px;
+    background: #264a67;
+    position: absolute;
+    top: 48%;
+    left: 10%;
+    transform: rotate(45deg);
+    transition: all 0.3s ease-out;
+}
+.modal__btn:after {
+    transform: rotate(-45deg);
+    transition: all 0.3s ease-out;
+}
+.modal__btn:hover:before,
+.modal__btn:hover:after {
+    transform: rotate(180deg);
+    background: #5346a8; 
+}
+.modal__overview {
+    text-align: left;
+    text-indent: 10px;
+    overflow: auto;
+    height: 205px;
+    margin-top: 10px;
+
+}
+.modal__title {
+    text-decoration: underline;
+    font-size: 40px;
+    font-weight: 600;
+}
+.modal__overview span,
+.modal__year span {
+    font-size: 26px;
+    font-weight: 600;
+}
