@@ -4,7 +4,7 @@ import { AboutPage } from './components/AboutPage';
 import { Error404 } from './components/Error404';
 import { Header } from './components/Header';
 import { MainPage } from './components/MainPage';
-import { FormPage } from './FormPage';
+import { FormPage } from './components/FormPage';
 import './styles.css';
 
 export const App = () => (
