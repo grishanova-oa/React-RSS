@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IFormCard } from '../types';
 import './FormInnerStyles.css';
-
-interface IProps {
-  addNewCard: (card: IFormCard) => void;
-}
+import { useAppDispatch } from '../../hook';
+import { addNewCard } from '../../store/slice/CommonSlice';
 
 interface Event<T = EventTarget> {
   target: T;
 }
 
-export const FormInner = ({ addNewCard }: IProps) => {
+export const FormInner = () => {
+  const dispatch = useAppDispatch();
+
   const [successMsg, setSuccessMsg] = useState('');
   const [newPathFile, setNewPathFile] = useState<string | null>(null);
 
@@ -32,7 +32,9 @@ export const FormInner = ({ addNewCard }: IProps) => {
     if (newPathFile) {
       data.inputImage = newPathFile;
     }
-    addNewCard(data);
+
+    dispatch(addNewCard(data));
+
     setSuccessMsg('Congratulation! Card is created!');
     setTimeout(() => {
       setSuccessMsg('');
