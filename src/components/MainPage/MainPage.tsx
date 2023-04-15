@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './MainPageStyles.css';
+import { useSelector } from 'react-redux';
 import { MainSearchBar } from '../MainSearchBar';
 import { Cards } from '../Cards';
-import { IListFilm } from '../types';
+import { getListFilms } from '../../store/selector/commonSelectors';
 
 export const MainPage = () => {
-  const [listFilm, setListFilm] = useState<IListFilm[]>([]);
-
+  const listFilm = useSelector(getListFilms);
   return (
     <div className="main">
-      <MainSearchBar setListFilm={setListFilm} />
+      <MainSearchBar />
       <div className="cards">
         {listFilm.map((item) => (
           <Cards

@@ -20,10 +20,7 @@ export const CardDetailed = ({ setIsShowInfo, item, actualPath }: IDetailed) => 
         <img src={actualPath} className="modal__img" alt="" />
         <div className="modal__text">
           <p className="modal__title">
-            <span>Title:</span>
-            {' '}
             {item.original_title}
-
           </p>
           <div className="info__film">
             <div className="card__rating">
@@ -43,7 +40,6 @@ export const CardDetailed = ({ setIsShowInfo, item, actualPath }: IDetailed) => 
             <div className="modal__overview">
               <span>Overview:</span>
               {' '}
-
               {item.overview}
             </div>
           </div>
