@@ -1,6 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-const getCommon = (state: any) => state.commonReducer || { listFilm: [] };
+import { RootState } from '../store';
 
-export const getCards = (state: any) => getCommon(state).cards;
-export const getListFilms = (state: any) => getCommon(state).listFilm;
-export const getSearchValue = (state: any) => getCommon(state).searchValue;
+const getCommon = (state: RootState) => state.commonReducer;
+
+export const getCards = (state: RootState) => getCommon(state).cards;
+export const getListFilms = (state: RootState) => getCommon(state).listFilm;
+export const getSearchValue = (state: RootState) => getCommon(state).searchValue;
+export const getIsShowLoader = (state: RootState) => getCommon(state).isShowLoader;

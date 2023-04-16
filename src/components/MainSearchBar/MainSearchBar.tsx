@@ -1,58 +1,29 @@
 import React, {
-  ChangeEvent, useEffect, useState,
+  ChangeEvent, useEffect,
 } from 'react';
 import './MainSearchBarStyles.css';
-import { IListFilm } from '../types';
+import { useAppDispatch, useAppSelector } from '../../hook';
+import { saveSearchValue } from '../../store/slice/CommonSlice';
+import { getIsShowLoader, getSearchValue } from '../../store/selector/commonSelectors';
+import { addListFilmAsync } from '../../thunks/thunks';
 
-interface IMainSearch {
-  setListFilm: (film: IListFilm[]) => void;
-}
-
-const baseUrl = 'https://api.themoviedb.org/3/search/movie?api_key=60e12f358c2229eee542fbb16a0630ae&query=';
-
-export const MainSearchBar = ({ setListFilm }: IMainSearch) => {
-  const initInputValue = localStorage.getItem('search');
-  const searchTest = initInputValue ? JSON.parse(initInputValue) : '';
-  const [search, setSearch] = useState(searchTest);
-  const [isShowLoader, setIsShowLoader] = useState(false);
-
-  useEffect(() => () => {
-    if (search) {
-      localStorage.setItem('inputValue', JSON.stringify(search));
-    }
-  }, [search]);
+export const MainSearchBar = () => {
+  const searchValue = useAppSelector(getSearchValue);
+  const isShowLoader = useAppSelector(getIsShowLoader);
+  const dispatch = useAppDispatch();
 
   const onInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    setSearch(target.value);
+    dispatch(saveSearchValue(target.value));
   };
 
-  async function fetchMovies() {
-    try {
-      setIsShowLoader(true);
-      const response = await fetch(`${baseUrl}${search || 'the'}`);
-      if (response.ok) {
-        setTimeout(async () => {
-          setIsShowLoader(false);
-          const body = await response.json();
-          setListFilm(body.results);
-          return body;
-        }, 500);
-      }
-      throw new Error('Problem with fetch');
-    } catch (error) {
-      return { success: false };
-    }
-  }
-
   useEffect(() => {
-    fetchMovies();
+    dispatch(addListFilmAsync(searchValue || 'the'));
   }, []);
 
   const saveValueToLocalStorage = (event: React.MouseEvent<HTMLButtonElement>
   | React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    localStorage.setItem('search', JSON.stringify(search));
-    fetchMovies();
+    dispatch(addListFilmAsync(searchValue));
   };
 
   return (
@@ -61,7 +32,7 @@ export const MainSearchBar = ({ setListFilm }: IMainSearch) => {
       <form className="search-bar" onSubmit={saveValueToLocalStorage}>
         <label>
           <input
-            value={search}
+            value={searchValue}
             onChange={onInputChange}
             className="search"
             type="search"
