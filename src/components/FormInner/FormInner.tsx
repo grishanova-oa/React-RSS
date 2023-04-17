@@ -36,9 +36,7 @@ export const FormInner = () => {
     dispatch(addNewCard(data));
 
     setSuccessMsg('Congratulation! Card is created!');
-    setTimeout(() => {
-      setSuccessMsg('');
-    }, 4000);
+    setSuccessMsg('');
     reset();
     setNewPathFile(null);
   }

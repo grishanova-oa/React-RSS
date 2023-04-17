@@ -2,8 +2,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import ReactDOM from 'react-dom/client';
+
 import './styles.css';
+import { render } from '@testing-library/react';
 import { App } from './App';
 import { commonReducer } from './store/slice/CommonSlice';
 
@@ -13,16 +14,15 @@ export const store = configureStore({
   },
 });
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
-
-root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>,
-);
+const root = document.getElementById('root');
+if (root) {
+  render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </BrowserRouter>
+    </React.StrictMode>,
+  );
+}

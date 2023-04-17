@@ -1,11 +1,19 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { Provider } from 'react-redux';
 import { FormInner } from './FormInner';
 import { checkTitleValid, isCostValid, isDescriptionValid } from './helpers';
+import { store } from '../..';
+
+const layout = (
+  <Provider store={store}>
+    <FormInner />
+  </Provider>
+);
 
 test('renders from property44444444', () => {
-  const element = render(<FormInner addNewCard={() => jest.fn()} />);
+  const element = render(layout);
   const typeLabel = element.getByText(/Choose type:/i);
   const cityLabel = element.getByText(/Enter the city:/i);
   const dateLabel = element.getByText(/I agree to the processing of personal data/i);
@@ -15,19 +23,19 @@ test('renders from property44444444', () => {
 });
 
 test('checks text from the AboutPage', () => {
-  const element = render(<FormInner addNewCard={() => jest.fn()} />);
+  const element = render(layout);
   const input = element.getByLabelText(/Enter the cost:/i);
   expect(input).toHaveAttribute('type', 'number');
 });
 
 test('checks button from the AboutPage 1111', () => {
-  const element = render(<FormInner addNewCard={() => jest.fn()} />);
+  const element = render(layout);
   const input = element.getByRole('button');
   expect(input).toHaveAttribute('type', 'submit');
 });
 
 test('renders from property 111 ', () => {
-  const element = render(<FormInner addNewCard={() => jest.fn()} />);
+  const element = render(layout);
   const placeHolder = element.getByPlaceholderText(/We are wait you.../i);
   expect(placeHolder).toBeInTheDocument();
 });
