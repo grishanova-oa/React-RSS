@@ -9,16 +9,11 @@ interface ICards {
 
 export const Cards = ({ item } : ICards) => {
   const [isShowInfo, setIsShowInfo] = useState(false);
-
   const posterPath = item.poster_path;
-  const noPath = 'https://w0.peakpx.com/wallpaper/889/173/HD-wallpaper-duo-pareja-amor-love-thumbnail.jpg';
-  let actualPath: string;
+  const actualPath = posterPath
+    ? `https://image.tmdb.org/t/p/w300/${posterPath}`
+    : 'https://w0.peakpx.com/wallpaper/889/173/HD-wallpaper-duo-pareja-amor-love-thumbnail.jpg';
 
-  if (posterPath) {
-    actualPath = `https://image.tmdb.org/t/p/w300/${posterPath}`;
-  } else {
-    actualPath = noPath;
-  }
   return (
     <>
       <button className="card" type="button" onClick={() => setIsShowInfo(true)}>

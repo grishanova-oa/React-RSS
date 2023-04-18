@@ -1,4 +1,15 @@
-import { IListFilm } from './components/types';
+import { IFormCard, IListFilm } from './components/types';
+
+export const mockNewCardData: IFormCard = {
+  inputTitle: 'Qwerty',
+  inputCost: 'string',
+  date: 'string',
+  inputImage: 'string',
+  inputSelect: 'string',
+  inputDescription: 'string',
+  current: 'string',
+  inputCheckbox: true,
+};
 
 export const announcement: IListFilm[] = [
   {

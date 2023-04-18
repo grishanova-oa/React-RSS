@@ -11,6 +11,18 @@ describe('Texts in document', () => {
 
     expect(title).toBeInTheDocument();
   });
+
+  it('display the link', () => {
+    const links = ['Main', 'About us'];
+
+    const element = render(<BrowserRouter><Header /></BrowserRouter>);
+
+    links.forEach((link) => {
+      const navLink = element.getByText(link);
+      expect(navLink).toBeInTheDocument();
+    });
+  });
+
   it('it checks Main test', () => {
     const element = render(<BrowserRouter><Header /></BrowserRouter>);
     const elemList = element.getAllByText(/Main/i);

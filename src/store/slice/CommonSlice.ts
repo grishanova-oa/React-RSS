@@ -15,13 +15,10 @@ const initialState: IState = {
   isShowLoader: false,
 };
 
-export const commonSlice = createSlice({
+const commonSlice = createSlice({
   name: 'commonSlice',
   initialState,
   reducers: {
-    saveAddNewCard: (state: IState, { payload }) => {
-      state.cards = payload;
-    },
     addNewCard: (state: IState, { payload }) => {
       state.cards = [...state.cards, payload];
     },
@@ -38,7 +35,7 @@ export const commonSlice = createSlice({
 });
 
 export const {
-  saveAddNewCard, saveListFilm, addNewCard, saveSearchValue, setIsShowLoader,
+  saveListFilm, addNewCard, saveSearchValue, setIsShowLoader,
 } = commonSlice.actions;
 
 export const commonReducer = commonSlice.reducer;

@@ -29,10 +29,6 @@ export const Header = () => {
   const location = useLocation();
   const [currentPage, setCurrentPage] = useState(getCurrentPage(location.pathname));
 
-  const handleNavClick = (newPage: string) => {
-    setCurrentPage(newPage);
-  };
-
   return (
     <>
       <header className="container__header">
@@ -42,13 +38,13 @@ export const Header = () => {
             {/* <div className="title">Lovely Movie</div> */}
             <h1>{currentPage}</h1>
             <div className="header__nav">
-              <NavLink to="/" onClick={() => handleNavClick('Main')} aria-label="cost-input">
-                Main
+              <NavLink to="/" onClick={() => setCurrentPage('Main')} aria-label="cost-input">
+                main
               </NavLink>
-              <NavLink to="/form" onClick={() => handleNavClick('Form')}>
+              <NavLink to="/form" onClick={() => setCurrentPage('Form')}>
                 Form
               </NavLink>
-              <NavLink to="/about" onClick={() => handleNavClick('About')}>
+              <NavLink to="/about" onClick={() => setCurrentPage('About')}>
                 About us
               </NavLink>
             </div>

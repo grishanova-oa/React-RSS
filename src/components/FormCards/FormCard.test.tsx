@@ -18,6 +18,8 @@ const card: IFormCard = {
 test('form', () => {
   const element = render(<FormCards card={card} />);
   const title = element.getByText(/New Card/i);
+  const inputTitle = element.getByText(card.inputTitle);
 
   expect(title).toBeInTheDocument();
+  expect(inputTitle).toBeInTheDocument();
 });

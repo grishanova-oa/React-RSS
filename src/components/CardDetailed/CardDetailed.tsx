@@ -1,6 +1,7 @@
 import React from 'react';
 import './CardDetailedStyles.css';
 import { IListFilm } from '../types';
+import { CardBtnClose } from '../CardBtnClose';
 
 interface IDetailed {
   setIsShowInfo: (isOpen: boolean) => void;
@@ -10,12 +11,10 @@ interface IDetailed {
 }
 
 export const CardDetailed = ({ setIsShowInfo, item, actualPath }: IDetailed) => (
-
-  <button className="modal" type="button" onClick={() => setIsShowInfo(false)}>
-    <button type="button" className="modal__inner" onClick={(e) => e.stopPropagation()}>
-      <div className="modal__back__btn">
-        <button className="modal__btn" type="button" aria-label="modal" onClick={() => setIsShowInfo(false)} />
-      </div>
+  <>
+    <button type="button" data-testid="modal" className="modal" onClick={() => setIsShowInfo(false)} aria-label="btn" name="See" />
+    <div className="modal__inner" onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()} role="presentation">
+      <CardBtnClose setIsShowInfo={setIsShowInfo} />
       <div className="modal__info">
         <img src={actualPath} className="modal__img" alt="" />
         <div className="modal__text">
@@ -45,6 +44,7 @@ export const CardDetailed = ({ setIsShowInfo, item, actualPath }: IDetailed) => 
           </div>
         </div>
       </div>
-    </button>
-  </button>
+    </div>
+  </>
+
 );
