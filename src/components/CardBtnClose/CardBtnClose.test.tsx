@@ -2,6 +2,7 @@ import React from 'react';
 import {
   fireEvent, render, waitFor,
 } from '@testing-library/react';
+import { vi } from 'vitest';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 import { store } from '../..';
@@ -9,7 +10,7 @@ import { CardBtnClose } from './CardBtnClose';
 
 const layout = (
   <Provider store={store}>
-    <CardBtnClose setIsShowInfo={() => jest.fn()} />
+    <CardBtnClose setIsShowInfo={() => vi.fn()} />
   </Provider>
 );
 

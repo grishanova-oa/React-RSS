@@ -2,6 +2,7 @@ import React from 'react';
 import {
   fireEvent, render, waitFor,
 } from '@testing-library/react';
+import { vi } from 'vitest';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 import { store } from '../..';
@@ -12,7 +13,7 @@ const path = 'path';
 
 const layout = (
   <Provider store={store}>
-    <CardDetailed actualPath={path} item={announcement[0]} setIsShowInfo={() => jest.fn()} />
+    <CardDetailed actualPath={path} item={announcement[0]} setIsShowInfo={() => vi.fn()} />
   </Provider>
 );
 
@@ -30,5 +31,5 @@ test('renders from property44444444', async () => {
   expect(languageLabel).toBeInTheDocument();
   expect(overviewLabel).toBeInTheDocument();
   expect(img).toBeInTheDocument();
-  expect(img.src).toEqual(`http://localhost/${path}`);
+  expect(img.src).toEqual(`http://localhost:3000/${path}`);
 });
